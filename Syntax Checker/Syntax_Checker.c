@@ -13,11 +13,8 @@ int search(char arr[],int len);
 void bracket(fileline arr[],int len);
 void keyword(fileline arr[],int length);
 void function_and_prototype_count(fileline arr[],int len);
-//void protocheck(fileline arr[],int len);
-//void functioncheck(fileline arr[],int len);
 void checkkeyword(fileline arr[],int len);
 void builtinfunction(fileline arr[],int len);
-//void count(fileline arr[],int len);
 void printscan(fileline arr[],int size);
 int printcheck(char arr[],int size);
 int scancheck(char arr[],int size);
@@ -37,8 +34,8 @@ int main(){
 	int totallen,j,i=0,len,found;
 	input=fopen("input.txt","r");
 	while(fgets(str1,100,input)!=NULL){
-		len=strlen(str1); //length of a line
-		found=search(str1,len); //position of comment if exists
+		len=strlen(str1); 
+		found=search(str1,len); 
 		if (str1[0]!='\n'&&found==-1){
 			str[i].lineno=i+1;
 		    str[i].linelen=len;
@@ -63,7 +60,6 @@ int main(){
 	
 	printf("\n\n\n\t\t\tKEYWORDS with LINE NUMBER\n\n\n");
 	keyword(str,totallen);
-	//protocheck(str,totallen);
 	printf("\n\n\n\t\t\tTOTAL NUMBER OF BUILTIN FUNCTIONS USED\n\n\n");
 	builtinfunction(str,totallen);
 	printf("\n\n\n\t\t\tTOTAL FUNCTIONS USED INCLUDING MAIN\n\n\n");
@@ -73,7 +69,6 @@ int main(){
 	
 	
 	printf("\n\n\n\t\t\tSYNTAX CHECK\n\n");
-	//printscan(str,totallen);
 	fcheck(str,totallen);
 	printf("\n\n\n\t\t\tTOTAL LINES IN PROGRAM\n\n\n");
 	printf("Total line in Program are: %d",totallen);
@@ -177,7 +172,6 @@ void printscan(fileline arr[],int size){
 	for(i=0;i<size;i++){
 		for(x=0;(arr[i].linetext[x]==' '||arr[i].linetext[x]=='\t');x++);
 		printf("%d",x);
-		//strcpy(str,arr[i].linetext);
 		for(int a=0;a<arr[i].linelen-x;a++){
 			str[a]=arr[i].linetext[x+a];
 		}
@@ -219,15 +213,10 @@ int scancheck(char arr[],int size){
 		if(arr[i]=='%'&&arr[i+1]=='s')scount++;
 		
 	}
-	
-	
-	
-	
-	
+		
 	if(pcount!=ccount)f=1;
 	if(icount%2!=0)f=1;
 	if((pcount-scount)!=acount)f=1;
-	
 	return f;
 	
 }
@@ -241,8 +230,7 @@ int fprintfcheck(char arr[],int size){
 	if(pcount!=ccount-1)f=1;
 	if(icount%2!=0)f=1;
 	
-	return f;
-	
+	return f;	
 }
 int getscheck(char arr[],int size){
 		int f=0;
@@ -255,8 +243,7 @@ int getscheck(char arr[],int size){
 		
 	}
 
-	return f;
-	
+	return f;	
 }
 int putscheck(char arr[],int size){
 		int f=0;
@@ -283,14 +270,11 @@ void function_and_prototype_count(fileline arr[],int len){
 		strcpy(str,arr[i].linetext);
 		int strlength;
 		strlength=arr[i].linelen;
-	//	printf("---> %c\n",str[strlength-2]);
 		for(j=0;j<arr[i].linelen;j++){
 			if (str[j]==' '||str[j]=='('|| str[j]=='\0'||str[j]=='\t'){
 				a[k]='\0';
 				for(l=0;l<7;l++){
-					if ((strcmp(a,sync[l])==0)&&str[strlength-2]==')')total++;
-						
-					
+					if ((strcmp(a,sync[l])==0)&&str[strlength-2]==')')total++;		
 				}
 				k=0;
 				pos=j+1;
@@ -300,7 +284,6 @@ void function_and_prototype_count(fileline arr[],int len){
 	}
 	printf("Total Functions used including main function: %d\n",total);
 		int fun=0,found=0,m,pos=0;
-//	char a[100],str[100];
 	for (i=0;i<len&&!found;i++){
 		int k=0;
 		strcpy(str,arr[i].linetext);
@@ -381,7 +364,6 @@ void varcount(fileline arr[],int len){
 			else {a[k]=str[j]; k++;}
 		}
 	}
-
 	printf("Total int: %d\nTotal Char: %d\nTotal long integer: %d\nTotal Double: %d\nTotal float: %d\nTotal short integer: %d\n",total[0],total[1],total[2],total[3],total[4],total[5],total[6]);
 	memory[0]=total[0]*sizeof(int);
 	memory[1]=total[1]*sizeof(char);
